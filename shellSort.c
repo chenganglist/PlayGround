@@ -24,7 +24,6 @@ void shellSort(int a[],int num)
 				}
 			}
 		}
-
 	}
 }
 
