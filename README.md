@@ -4,6 +4,9 @@
 源码也不便于直接阅读，所以对于小段代码的练习，只使用文本编辑器来编写代码，    
 是很好的选择；这样也能方便练习makefile和gcc、g++的使用    
 
+playGround.java用于使用javac和java编写java测试代码   
+推荐使用编辑器编辑简单java代码，使用System.out.print调试        
+
 ##一、插入排序
 从0到num，不设置哨兵的插入排序，实现文件为insertSort.c   
 

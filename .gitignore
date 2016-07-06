@@ -1,4 +1,6 @@
 *.exe
 playGround.c
+playGround.java
+*.class
 
 
