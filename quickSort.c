@@ -2,39 +2,41 @@
 #include <stdlib.h>
 
 //起始位置和终止位置都是有效位置
+//变量不要设置太多，直接使用start和end左右回走
 int findMiddle(int a[],int start,int end)
 {
-	int i=start,j=end,mid=start;
+	int tmp=a[start];
 
 	while(start<end)
 	{
-		for(j=end;j>start;j--)
+		while(start<end)
 		{
-			if(a[j]<a[mid])
+			if(a[end]<tmp)
 			{
-				int tmp = a[j];
-				a[j] = a[mid];
-				a[mid] = tmp;
-				mid = j;
-				end = j;
+				a[start] = a[end];
+				start++;
+				break;
 			}
+			end--;
 		}
 
 
-		for(i=start;i<end;i++)
+		while(start<end)
 		{
-			if(a[i]>a[mid])
+			if(a[start]>tmp)
 			{
-				int tmp = a[i];
-				a[i] = a[mid];
-				a[mid] = tmp;
-				mid = i;
-				start = i;
+				a[end] = a[start];
+				end--;
+				break;
 			}
+			start++;
 		}
 	}
 
-	return mid;
+	//以下两句代码都可行
+	//a[start] = tmp;
+	a[end] = tmp;
+	return start;
 }
 
 
@@ -43,8 +45,9 @@ void quickSort(int a[],int start,int end)
 	if(start<end)
 	{
 		int mid = findMiddle(a,start,end);
-		quickSort(a,start,mid);
-		quickSort(a,mid+1,end)
+		//中间已经排好的数不加入下一步排序
+		quickSort(a,start,mid-1);
+		quickSort(a,mid+1,end);
 	}
 }
 
@@ -60,7 +63,7 @@ int main()
 		scanf("%d",a+i);
 	}
 
-	quickSort(a,0,n-1);
+	quickSort(a,0,num-1);
 
 	for(i=0;i<num;i++)
 	{
