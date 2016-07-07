@@ -12,7 +12,9 @@
 ##三、快速排序
 利用start和end游标左右回走，实现中间位置的查找；由于每次start<end的时候，   
 要么start++，要么end--,终止条件一定是start==end；所以一开始存储的中间元素，   
-最后赋值给a[start]或者a[end]都是一样的    
+最后赋值给a[start]或者a[end]都是一样的 
+编辑器忘了写int findMiddle(int a[],int start,int end)的返回值，gcc没有警告，
+出现段错误      
 
 ###三个要点
 一是要注意边界的处理，整个排序统一采用“有效边界原则”--
