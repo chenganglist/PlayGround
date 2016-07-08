@@ -81,6 +81,15 @@ void insertList(node* head,int insertPos,node* newElement)
 }
 
 
+void deleteListEleByPos(node* head,int deletePos)
+{
+
+}
+
+void deleteListEleByValue(node* head,int delValue)
+{
+
+}
 /*整个程序结束后，或者专业的说，进程结束后，
 申请的内存是会被释放的，但是这要依靠底层操作系统
 内存管理模块的实现机制，不同的实现机制释放
