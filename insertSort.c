@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//ºÚµ•≤Â»Î≈≈–Ú
 void insertSort(int a[],int num)
 {
 	int i,j;
