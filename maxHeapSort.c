@@ -11,7 +11,7 @@ void ajustMaxHeap(int a[],int i,int n)
 	{
 		if(rchild<n)
 		{
-			if(a[lchild]>a[rchild] && a[lchild]>a[i])
+			if(a[lchild]>=a[rchild] && a[lchild]>a[i])
 			{
 				int tmp = a[lchild];
 				a[lchild] = a[i];
@@ -19,7 +19,7 @@ void ajustMaxHeap(int a[],int i,int n)
 				i = lchild;
 			    lchild = 2*i + 1;
 				rchild = 2*i + 2;
-			}else if(a[rchild]>a[lchild] && a[rchild]>a[i])
+			}else if(a[rchild]>=a[lchild] && a[rchild]>a[i])
 			{
 				int tmp = a[rchild];
 				a[rchild] = a[i];
@@ -64,8 +64,14 @@ void buildMaxHeap(int a[],int n)
 void maxHeapSort(int a[],int n)
 {
 	buildMaxHeap(a,n);
-
 	int i;
+
+	for(i=0;i<n;i++)
+	{
+		printf("%d ",a[i]);
+	}
+	puts("-----------\n");
+
 	for(i=n-1;i>0;i--)
 	{
 		int tmp = a[i];
