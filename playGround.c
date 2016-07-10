@@ -1,46 +1,74 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//find middle element
-//end is the edge of array
-int findMiddle(int a[],int start,int end)
+//maxHeapSort
+void ajustMaxHeap(int a[],int i,int num)
 {
-	int data = a[start];
-	while(start<end)
+	int lchild = 2*i+1;
+	int rchild = 2*i+2;
+	while(lchild<num)
 	{
-		while(start<end)
+		if(rchild<num)
 		{
-			if(a[end]<data)
+			if(a[rchild]>a[i] && a[rchild]>a[lchild])
 			{
-				a[start] = a[end];
-				start++;
+				int tmp = a[i];
+				a[i] = a[rchild];
+				a[rchild] = tmp;
+				i =  rchild;
+				lchild = 2*i+1;
+				rchild = 2*i+2;
+			}else if(a[lchild]>a[i] && a[lchild]>a[rchild])
+			{
+				int tmp = a[i];
+				a[i] = a[lchild];
+				a[lchild] = tmp;
+				i = lchild;
+				lchild = 2*i+1;
+				rchild = 2*i+2;				
+			}else{
 				break;
 			}
-			end--;
-		}
-		
-		while(start<end)
-		{	
-			if(a[start]>data)
+		}else
+		{
+			if( a[lchild]>a[i] )
 			{
-				a[end] = a[start];
-				end--;
+				int tmp = a[i];
+				a[i] = a[lchild];
+				a[lchild] = tmp;
+				i = lchild;
+				lchild = 2*i+1;
+				rchild = 2*i+2;	
+			}else
+			{
 				break;
 			}
-			start++;
 		}
 	}
-	a[start] = data;
-	return start;
 }
 
-void quickSort(int a[],int start,int end)
+
+//buildMaxHeap
+void buildMaxHeap(int a[],int num)
 {
-	if(start<end)
+	int i;
+	for(i=num/2;i>=0;i--)
 	{
-		int mid = findMiddle(a,start,end);
-		quickSort(a,start,mid-1);
-		quickSort(a,mid+1,end);
+		ajustMaxHeap(a,i,num);
+	}
+}
+
+//maxHeapSort
+void maxHeapSort(int a[],int num)
+{
+	buildMaxHeap(a,num);
+	int i;
+	for(i=num-1;i>=0;i--)
+	{
+		int tmp = a[i];
+		a[i] = a[0];
+		a[0] = tmp;
+		ajustMaxHeap(a,0,i);
 	}
 }
 
@@ -49,19 +77,24 @@ int main()
 {
 	int num;
 	scanf("%d",&num);
-	int *a = (int*)malloc(num*sizeof(int));
-	
+	fflush(stdin);
+	int* a = (int*)malloc(num*sizeof(int));
 	int i;
 	for(i=0;i<num;i++)
 	{
 		scanf("%d",a+i);
 	}
-	quickSort(a,0,num-1);
+
+	maxHeapSort(a,num);
+
 	for(i=0;i<num;i++)
 	{
 		printf("%d ",a[i]);
 	}
 	free(a);
-
 	return 0;
 }
+
+
+
+

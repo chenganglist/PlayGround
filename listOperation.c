@@ -52,7 +52,7 @@ void printList(node* head)
 }
 
 
-//在指定位置插入新元素
+//在指定位置插入新元素,需要考虑替换头结点的情况
 void insertList(node* head,int insertPos,node* newElement)
 {
 	if(insertPos<0)
@@ -80,12 +80,22 @@ void insertList(node* head,int insertPos,node* newElement)
 	}
 }
 
-
+//需要考虑头结点被删除的情况
 void deleteListEleByPos(node* head,int deletePos)
 {
+	node* cur = head;
+	int pos = 0;
+	while(cur!=NULL)
+	{
+		if( deletePos == pos )
+		{
 
+		}
+	}
 }
 
+
+//需要考虑头结点被删除的情况
 void deleteListEleByValue(node* head,int delValue)
 {
 
