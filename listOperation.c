@@ -53,22 +53,28 @@ void printList(node* head)
 
 
 //在指定位置插入新元素,需要考虑替换头结点的情况
-void insertList(node* head,int insertPos,node* newElement)
+node* insertListByPos(node* head,int insertPos,node* newElement)
 {
 	if(insertPos<0)
 	{
 		puts("unsupposrted position");
-		return;
+		return head;
 	}
 	int pos = 0;
 	node* cur = head;
+	if(insertPos == 0)
+	{
+		newElement->next = head;
+		return newElement;
+	}
+
 	while(cur!=NULL)
 	{
 		if(insertPos == pos+1 )
 		{
 			newElement->next = cur->next;
 			cur->next = newElement;
-			return;
+			return head;
 		}
 		cur = cur->next;
 		pos++;
@@ -76,21 +82,51 @@ void insertList(node* head,int insertPos,node* newElement)
 	if(pos<insertPos)
 	{
 		puts("unsupposrted position");
-		return;
+		return head;
 	}
 }
 
 //需要考虑头结点被删除的情况
-void deleteListEleByPos(node* head,int deletePos)
+node* deleteListEleByPos(node* head,int deletePos)
 {
 	node* cur = head;
 	int pos = 0;
+	if(deletePos<0)
+	{
+		puts("out of range");
+		return head;
+	}
+
+	if(deletePos == 0)
+	{
+		node* newHead = head->next;
+		free(head);
+		return newHead;
+	}
 	while(cur!=NULL)
 	{
-		if( deletePos == pos )
+		if( deletePos == pos+1 && cur->next != NULL)
 		{
-
+			node* mcur = cur->next->next;
+			node* curNext = cur->next;
+			cur->next = mcur;
+			free(curNext);
+			return head;
 		}
+		cur = cur->next;
+		pos++;
+	}
+
+	if(deletePos == pos)
+	{
+		free(cur);
+		cur = NULL;
+		return head;
+	}
+	if(deletePos>pos)
+	{
+		puts("out of range");
+		return head;
 	}
 }
 
@@ -129,7 +165,8 @@ int main()
 	newElement->data = 100;
 	newElement->next = NULL;
 	int insertPos =  5;
-	insertList(listHead,insertPos,newElement);
+	insertListByPos(listHead,insertPos,newElement);
+	deleteListEleByPos(listHead,6);
 
 	puts("插入新元素后链表为：");
 	printList(listHead);
