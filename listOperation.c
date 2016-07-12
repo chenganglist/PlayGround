@@ -159,18 +159,42 @@ int main()
 {
 	node* listHead = createList();
 	puts("创建的链表为：");
+	fflush(stdout);
 	printList(listHead);
 
+
+	puts("插入链表测试：");
 	node* newElement = (node*)malloc(sizeof(node));
-	newElement->data = 100;
-	newElement->next = NULL;
-	int insertPos =  5;
-	insertListByPos(listHead,insertPos,newElement);
-	deleteListEleByPos(listHead,6);
+	fflush(stdout);
+	puts("请输入插入元素：");
+	fflush(stdout);
+	scanf("%d",&newElement->data);
 
-	puts("插入新元素后链表为：");
+	newElement->next = NULL;
+
+	puts("请输入链表元素插入位置：");
+	fflush(stdout);
+	int insertPos;
+	scanf("%d",&insertPos);
+
+	insertListByPos(listHead,insertPos,newElement);
+
+	puts("插入元素后链表为：");
+	fflush(stdout);
 	printList(listHead);
+
+	puts("删除链表，请输入删除链表位置：");
+	fflush(stdout);
+	int deleteListPos;
+	scanf("%d",&deleteListPos);
+	deleteListEleByPos(listHead,deleteListPos);
+
+	puts("删除元素后链表为：");
+	fflush(stdout);
+	printList(listHead);
+
 	deleteList(listHead);
+
 	return 0;
 }
 
