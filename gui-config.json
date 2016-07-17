@@ -1,0 +1,40 @@
+{
+  "configs": [
+    {
+      "server": "121.48.175.198",
+      "server_port": 8388,
+      "password": "csis318b",
+      "method": "aes-256-cfb",
+      "remarks": "",
+      "auth": false
+    },
+    {
+      "server": "free2.acrossgw.com",
+      "server_port": 17564,
+      "password": "jGrI26",
+      "method": "rc4-md5",
+      "remarks": "",
+      "auth": false
+    },
+    {
+      "server": "free1.acrossgw.com",
+      "server_port": 17564,
+      "password": "jGrI26",
+      "method": "rc4-md5",
+      "remarks": "",
+      "auth": false
+    }
+  ],
+  "strategy": null,
+  "index": 1,
+  "global": true,
+  "enabled": true,
+  "shareOverLan": true,
+  "isDefault": false,
+  "localPort": 1080,
+  "pacUrl": null,
+  "useOnlinePac": false,
+  "availabilityStatistics": false,
+  "autoCheckUpdate": false,
+  "logViewer": null
+}
