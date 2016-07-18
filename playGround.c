@@ -1,73 +1,49 @@
+//quickSort
 #include <stdio.h>
 #include <stdlib.h>
 
-
-void ajustMaxHeap(int a[],int i,int n)
+//findMiddle递归的核心,不要引入多余变量，以免纠缠不清
+int findMiddle(int a[],int start,int end)
 {
-	int lchild = 2*i+1;
-	int rchild = 2*i+2;
-	while(lchild<n)
+	int data = a[start];
+	while(start<end)
 	{
-		if(rchild<n)
+     	while(start<end)
 		{
-			if(a[rchild]>a[i] && a[rchild]>=a[lchild])
+			if(a[end]<data)
 			{
-				int tmp = a[rchild];
-				a[rchild] = a[i];
-				a[i] = tmp;
-				i = rchild;
-				lchild = 2*i+1;
-				rchild = 2*i+2;
-			}else if(a[lchild]>a[i] && a[lchild]>=a[rchild])
-			{
-				int tmp = a[lchild];
-				a[lchild] = a[i];
-				a[i] = tmp;
-				i = lchild;
-				lchild = 2*i+1;
-				rchild = 2*i+2;
-			}else
-			{
+				a[start] = a[end];
+				start++;
 				break;
 			}
-		}else
+			end--;
+		}
+
+
+     	while(start<end)
 		{
-			if(a[lchild]>a[i])
+			if(a[start]>data)
 			{
-				int tmp = a[lchild];
-				a[lchild] = a[i];
-				a[i] = tmp;
-				i = lchild;
-				lchild = 2*i+1;
-				rchild = 2*i+2;
-			}else
-			{
+				a[end] = a[start];
+				end--;
 				break;
 			}
+			start++;
 		}
 	}
+	a[start] = data;
+	return start;
 }
 
 
-void buildMaxHeap(int a[],int n)
+//quickSort
+void quickSort(int a[],int start,int end)
 {
-	int i;
-	for(i=n/2;i>=0;i--)
+	if(start<end)
 	{
-		ajustMaxHeap(a,i,n);
-	}
-}
-
-void maxHeapSort(int a[],int n)
-{
-	buildMaxHeap(a,n);
-	int i;
-	for(i=n-1;i>0;i--)
-	{
-		int tmp = a[0];
-		a[0] = a[i];
-		a[i] = tmp;
-		ajustMaxHeap(a,0,i);
+		int mid = findMiddle(a,start,end);
+		quickSort(a,start,mid-1);
+		quickSort(a,mid+1,end);
 	}
 }
 
@@ -75,30 +51,26 @@ void maxHeapSort(int a[],int n)
 int main(int argc,char* argv[])
 {
 	int num;
-	puts("请输入数组的大小：");
+	puts("请输入排序数组元素个数: ");
 	fflush(stdout);
-	scanf("%d",&num);
-
-	puts("请依次输入数组元素：");
-	fflush(stdout);
+	
 	int *a = (int*)malloc(num*sizeof(int));
-
 	int i;
+	puts("请依次输入数组元素: ");
+	fflush(stdout);
+
 	for(i=0;i<num;i++)
 	{
 		scanf("%d",a+i);
 	}
 
-	maxHeapSort(a,num);
+	puts("排序后的结果: ");
+	fflush(stdout);	
 
-	puts("排序结果为： ");
-	fflush(stdout);
-	
 	for(i=0;i<num;i++)
 	{
-		printf("%d ",a[i]);
-	}
-
+		printf("%d",a[i]);
+	}	
 	free(a);
 	return 0;
 }
