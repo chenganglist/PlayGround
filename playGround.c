@@ -1,51 +1,61 @@
-//quickSort
+//mergeSort
 #include <stdio.h>
 #include <stdlib.h>
 
-//findMiddle递归的核心,不要引入多余变量，以免纠缠不清
-int findMiddle(int a[],int start,int end)
+//merge
+void merge(int a[],int start,int mid,int end)
 {
-	int data = a[start];
-	while(start<end)
+	int num = end - start + 1;
+	int* tmp = (int*)malloc(num*sizeof(int));
+	int i=start,j=mid+1;
+	int k = 0;
+	while(k<num)
 	{
-     	while(start<end)
+		if(i<=mid && j<=end)
 		{
-			if(a[end]<data)
+			if(a[i]<a[j])
 			{
-				a[start] = a[end];
-				start++;
-				break;
+				tmp[k] = a[i];
+				i++;
+			}else
+			{
+				tmp[k] = a[j];
+				j++;
 			}
-			end--;
-		}
-
-
-     	while(start<end)
+		}else if(i<=mid)
 		{
-			if(a[start]>data)
-			{
-				a[end] = a[start];
-				end--;
-				break;
-			}
-			start++;
+			tmp[k] = a[i];
+			i++;
+		}else if(j<=end)
+		{
+			tmp[k] = a[j];
+			j++;
+		}else{
+			break;
 		}
+		k++;
 	}
-	a[start] = data;
-	return start;
+	for(i=0;i<num;i++)
+	{
+		a[start+i] = tmp[i];
+	}
+	free(tmp);
 }
 
-
-//quickSort
-void quickSort(int a[],int start,int end)
+//mergeSort
+void mergeSort(int a[],int start,int end)
 {
 	if(start<end)
 	{
-		int mid = findMiddle(a,start,end);
-		quickSort(a,start,mid-1);
-		quickSort(a,mid+1,end);
+		int mid = (start+end)/2;
+		mergeSort(a,start,mid);
+		mergeSort(a,mid+1,end);
+		merge(a,start,mid,end);
 	}
 }
+
+
+
 
 
 int main(int argc,char* argv[])
@@ -53,7 +63,8 @@ int main(int argc,char* argv[])
 	int num;
 	puts("请输入排序数组元素个数: ");
 	fflush(stdout);
-	
+	scanf("%d",&num);
+
 	int *a = (int*)malloc(num*sizeof(int));
 	int i;
 	puts("请依次输入数组元素: ");
@@ -67,9 +78,11 @@ int main(int argc,char* argv[])
 	puts("排序后的结果: ");
 	fflush(stdout);	
 
+	mergeSort(a,0,num-1);
+	
 	for(i=0;i<num;i++)
 	{
-		printf("%d",a[i]);
+		printf("%d ",a[i]);
 	}	
 	free(a);
 	return 0;

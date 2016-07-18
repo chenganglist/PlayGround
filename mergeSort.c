@@ -1,36 +1,40 @@
+//mergeSort
 #include <stdio.h>
 #include <stdlib.h>
 
+//merge
 void merge(int a[],int start,int mid,int end)
 {
-	int num = end-start+1;
+	int num = end - start + 1;
 	int* tmp = (int*)malloc(num*sizeof(int));
-	int i = 0,j = start,k = mid+1;
-	while(i<num)
+	int i=start,j=mid+1;
+	int k = 0;
+	while(k<num)
 	{
-		if(j<=mid && k<=end)
+		if(i<=mid && j<=end)
 		{
-			if(a[j]<a[k])
+			if(a[i]<a[j])
 			{
-				tmp[i] = a[j];
-				j++;
+				tmp[k] = a[i];
+				i++;
 			}else
 			{
-				tmp[i] = a[k];
-				k++;
+				tmp[k] = a[j];
+				j++;
 			}
-		}else if(j<=mid)
+		}else if(i<=mid)
 		{
-			tmp[i] = a[j];
+			tmp[k] = a[i];
+			i++;
+		}else if(j<=end)
+		{
+			tmp[k] = a[j];
 			j++;
-		}else if(k<=end)
-		{
-			tmp[i] = a[k];
-			k++;
+		}else{
+			break;
 		}
-		i++;
+		k++;
 	}
-
 	for(i=0;i<num;i++)
 	{
 		a[start+i] = tmp[i];
@@ -38,6 +42,7 @@ void merge(int a[],int start,int mid,int end)
 	free(tmp);
 }
 
+//mergeSort
 void mergeSort(int a[],int start,int end)
 {
 	if(start<end)
@@ -50,23 +55,35 @@ void mergeSort(int a[],int start,int end)
 }
 
 
-int main()
+
+
+
+int main(int argc,char* argv[])
 {
 	int num;
+	puts("请输入排序数组元素个数: ");
+	fflush(stdout);
 	scanf("%d",&num);
+
 	int *a = (int*)malloc(num*sizeof(int));
 	int i;
+	puts("请依次输入数组元素: ");
+	fflush(stdout);
+
 	for(i=0;i<num;i++)
 	{
 		scanf("%d",a+i);
 	}
 
-	mergeSort(a,0,num-1);
+	puts("排序后的结果: ");
+	fflush(stdout);	
 
+	mergeSort(a,0,num-1);
+	
 	for(i=0;i<num;i++)
 	{
 		printf("%d ",a[i]);
-	}
+	}	
 	free(a);
 	return 0;
 }

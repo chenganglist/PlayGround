@@ -11,3 +11,28 @@ db.lockInfo.find().pretty()
 
 
 db.stationInfo.update({},{$set:{"approveCode" : "4201010203040506"}},{multi:true})
+
+{ [MongoError: multi update only works with $ operators]
+  name: 'MongoError',
+  message: 'multi update only works with $ operators',
+  driver: true,
+  index: 0,
+  code: 9,
+  errmsg: 'multi update only works with $ operators' }
+连接成功！
+{ [MongoError: multi update only works with $ operators]
+  name: 'MongoError',
+  message: 'multi update only works with $ operators',
+  driver: true,
+  index: 0,
+  code: 9,
+  errmsg: 'multi update only works with $ operators' }
+连接成功！
+{ [MongoError: multi update only works with $ operators]
+  name: 'MongoError',
+  message: 'multi update only works with $ operators',
+  driver: true,
+  index: 0,
+  code: 9,
+  errmsg: 'multi update only works with $ operators' }
+连接成功！
