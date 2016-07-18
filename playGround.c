@@ -1,44 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//maxHeapSort
-void ajustMaxHeap(int a[],int i,int num)
+
+void ajustMaxHeap(int a[],int i,int n)
 {
 	int lchild = 2*i+1;
 	int rchild = 2*i+2;
-	while(lchild<num)
+	while(lchild<n)
 	{
-		if(rchild<num)
+		if(rchild<n)
 		{
-			if(a[rchild]>a[i] && a[rchild]>a[lchild])
+			if(a[rchild]>a[i] && a[rchild]>=a[lchild])
 			{
-				int tmp = a[i];
-				a[i] = a[rchild];
-				a[rchild] = tmp;
-				i =  rchild;
+				int tmp = a[rchild];
+				a[rchild] = a[i];
+				a[i] = tmp;
+				i = rchild;
 				lchild = 2*i+1;
 				rchild = 2*i+2;
-			}else if(a[lchild]>a[i] && a[lchild]>a[rchild])
+			}else if(a[lchild]>a[i] && a[lchild]>=a[rchild])
 			{
-				int tmp = a[i];
-				a[i] = a[lchild];
-				a[lchild] = tmp;
+				int tmp = a[lchild];
+				a[lchild] = a[i];
+				a[i] = tmp;
 				i = lchild;
 				lchild = 2*i+1;
-				rchild = 2*i+2;				
-			}else{
+				rchild = 2*i+2;
+			}else
+			{
 				break;
 			}
 		}else
 		{
-			if( a[lchild]>a[i] )
+			if(a[lchild]>a[i])
 			{
-				int tmp = a[i];
-				a[i] = a[lchild];
-				a[lchild] = tmp;
+				int tmp = a[lchild];
+				a[lchild] = a[i];
+				a[i] = tmp;
 				i = lchild;
 				lchild = 2*i+1;
-				rchild = 2*i+2;	
+				rchild = 2*i+2;
 			}else
 			{
 				break;
@@ -48,37 +49,40 @@ void ajustMaxHeap(int a[],int i,int num)
 }
 
 
-//buildMaxHeap
-void buildMaxHeap(int a[],int num)
+void buildMaxHeap(int a[],int n)
 {
 	int i;
-	for(i=num/2;i>=0;i--)
+	for(i=n/2;i>=0;i--)
 	{
-		ajustMaxHeap(a,i,num);
+		ajustMaxHeap(a,i,n);
 	}
 }
 
-//maxHeapSort
-void maxHeapSort(int a[],int num)
+void maxHeapSort(int a[],int n)
 {
-	buildMaxHeap(a,num);
+	buildMaxHeap(a,n);
 	int i;
-	for(i=num-1;i>=0;i--)
+	for(i=n-1;i>0;i--)
 	{
-		int tmp = a[i];
-		a[i] = a[0];
-		a[0] = tmp;
+		int tmp = a[0];
+		a[0] = a[i];
+		a[i] = tmp;
 		ajustMaxHeap(a,0,i);
 	}
 }
 
 
-int main()
+int main(int argc,char* argv[])
 {
 	int num;
+	puts("请输入数组的大小：");
+	fflush(stdout);
 	scanf("%d",&num);
-	fflush(stdin);
-	int* a = (int*)malloc(num*sizeof(int));
+
+	puts("请依次输入数组元素：");
+	fflush(stdout);
+	int *a = (int*)malloc(num*sizeof(int));
+
 	int i;
 	for(i=0;i<num;i++)
 	{
@@ -87,14 +91,14 @@ int main()
 
 	maxHeapSort(a,num);
 
+	puts("排序结果为： ");
+	fflush(stdout);
+	
 	for(i=0;i<num;i++)
 	{
 		printf("%d ",a[i]);
 	}
+
 	free(a);
 	return 0;
 }
-
-
-
-
