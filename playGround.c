@@ -1,89 +1,58 @@
-//mergeSort
 #include <stdio.h>
 #include <stdlib.h>
-
-//merge
-void merge(int a[],int start,int mid,int end)
+//shellSort
+//注意group只用于分组，gap才用于位移
+void shellSort(int a[],int n)
 {
-	int num = end - start + 1;
-	int* tmp = (int*)malloc(num*sizeof(int));
-	int i=start,j=mid+1;
-	int k = 0;
-	while(k<num)
+	int gap,group,i,j;
+	for(gap=n/2;gap>0;gap/=2)
 	{
-		if(i<=mid && j<=end)
+		for(group=0;group<gap;group++)
 		{
-			if(a[i]<a[j])
+			for(i=group;i<n-gap;i+=gap)
 			{
-				tmp[k] = a[i];
-				i++;
-			}else
-			{
-				tmp[k] = a[j];
-				j++;
+				for(j=i+gap;j>=gap;j-=gap)
+				{
+					if(a[j]<a[j-gap])
+					{
+						int tmp = a[j];
+						a[j] = a[j-gap];
+						a[j-gap] = tmp;
+					}else{
+						break;
+					}
+				}
 			}
-		}else if(i<=mid)
-		{
-			tmp[k] = a[i];
-			i++;
-		}else if(j<=end)
-		{
-			tmp[k] = a[j];
-			j++;
-		}else{
-			break;
 		}
-		k++;
-	}
-	for(i=0;i<num;i++)
-	{
-		a[start+i] = tmp[i];
-	}
-	free(tmp);
-}
-
-//mergeSort
-void mergeSort(int a[],int start,int end)
-{
-	if(start<end)
-	{
-		int mid = (start+end)/2;
-		mergeSort(a,start,mid);
-		mergeSort(a,mid+1,end);
-		merge(a,start,mid,end);
 	}
 }
 
-
-
-
-
-int main(int argc,char* argv[])
+int main(int argc,char*argv[])
 {
-	int num;
-	puts("请输入排序数组元素个数: ");
+	int n;
+	puts("请输入待排数组元素个数：");
 	fflush(stdout);
-	scanf("%d",&num);
 
-	int *a = (int*)malloc(num*sizeof(int));
+	scanf("%d",&n);
+	int* a = (int*)malloc(n*sizeof(int));
+	puts("请依次输入待排数组元素：");
+	fflush(stdout);	
+
 	int i;
-	puts("请依次输入数组元素: ");
-	fflush(stdout);
-
-	for(i=0;i<num;i++)
+	for(i=0;i<n;i++)
 	{
 		scanf("%d",a+i);
 	}
 
-	puts("排序后的结果: ");
-	fflush(stdout);	
+	shellSort(a,n);
 
-	mergeSort(a,0,num-1);
-	
-	for(i=0;i<num;i++)
+	puts("排序后的结果为：");
+	fflush(stdout);
+
+	for(i=0;i<n;i++)
 	{
-		printf("%d ",a[i]);
-	}	
+		printf("%d ",*(a+i));
+	}
 	free(a);
 	return 0;
 }

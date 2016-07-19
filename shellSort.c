@@ -1,24 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-void shellSort(int a[],int num)
+//shellSort
+//注意group只用于分组，gap才用于位移
+void shellSort(int a[],int n)
 {
-	int gap,k,i,j;
-	for(gap=num/2;gap>=1;gap=gap/2)
+	int gap,group,i,j;
+	for(gap=n/2;gap>0;gap/=2)
 	{
-		for(k=0;k<gap;k++)
+		for(group=0;group<gap;group++)
 		{
-			for(i=k;i<num-1;i=i+gap)
+			for(i=group;i<n-gap;i+=gap)
 			{
-				for(j=i;j>=k;j=j-gap)
+				for(j=i+gap;j>=gap;j-=gap)
 				{
-					if(a[j+1]<a[j])
+					if(a[j]<a[j-gap])
 					{
-						int tmp = a[j+1];
-						a[j+1] = a[j];
-						a[j] = tmp;
-					}else
-					{
+						int tmp = a[j];
+						a[j] = a[j-gap];
+						a[j-gap] = tmp;
+					}else{
 						break;
 					}
 				}
@@ -27,22 +27,31 @@ void shellSort(int a[],int num)
 	}
 }
 
-int main()
+int main(int argc,char*argv[])
 {
-	int num;
-	scanf("%d",&num);
-	int* a = (int*)malloc(num*sizeof(int));
+	int n;
+	puts("请输入待排数组元素个数：");
+	fflush(stdout);
+
+	scanf("%d",&n);
+	int* a = (int*)malloc(n*sizeof(int));
+	puts("请依次输入待排数组元素：");
+	fflush(stdout);	
+
 	int i;
-	for(i=0;i<num;i++)
+	for(i=0;i<n;i++)
 	{
 		scanf("%d",a+i);
 	}
 
-	shellSort(a,num);
+	shellSort(a,n);
 
-	for(i=0;i<num;i++)
+	puts("排序后的结果为：");
+	fflush(stdout);
+
+	for(i=0;i<n;i++)
 	{
-		printf("%d ",a[i]);
+		printf("%d ",*(a+i));
 	}
 	free(a);
 	return 0;
