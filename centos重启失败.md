@@ -119,4 +119,20 @@ Centos系统进入Grub应该如何解决
 Centos系统进入Grub应该如何解决
 
 
+linux tab
+menuentry 'Ubuntu, with Linux 3.2.0-24-generic-pae' {
+   recordfail
+   gfxmode $linux_gfx_mode
+   insmod gzio
+   insmod part_gpt
+   insmod reiserfs
+   set root='(hd0,gpt6)'
+   search --no-floppy --fs-uuid --set=root 313324f5-a9ed-4e80-b541-dc9e5eeb89fc
+   linux   /vmlinuz-3.2.0-23-generic-pae root=/dev/sda7 ro quiet splash $vt_handoff
+   initrd  /initrd.img-3.2.0-23-generic-pae
+}
+
+
+
+
 
