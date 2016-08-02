@@ -1,0 +1,1 @@
+按shift后，右键，修改chrome属性---目标，将chrome位置后的网址去除
