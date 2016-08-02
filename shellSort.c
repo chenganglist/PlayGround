@@ -11,6 +11,7 @@ void shellSort(int a[],int n)
 		{
 			for(i=group;i<n-gap;i+=gap)
 			{
+				//>=gap,记得gap取等号
 				for(j=i+gap;j>=gap;j-=gap)
 				{
 					if(a[j]<a[j-gap])
